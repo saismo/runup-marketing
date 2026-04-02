@@ -1,17 +1,313 @@
 ---
+import '../styles/global.css';
 
+const APP_URL = 'https://runup.saismo.at';
+
+const features = [
+  {
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="1" y1="1" x2="23" y2="23"/><path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"/><path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"/><path d="M10.71 5.05A16 16 0 0 1 22.56 9"/><path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>`,
+    title: 'No bars? No problem.',
+    description: 'Works without a connection. Remote airstrip, mountain valley, middle of nowhere — your checklists don\'t care.',
+  },
+  {
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>`,
+    title: 'Different plane, different checklist.',
+    description: 'Obvious? You\'d think so. Add a tail number, a photo, and each aircraft has its own setup. No mix-ups.',
+  },
+  {
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>`,
+    title: 'All 10 phases. In order.',
+    description: 'Pre-flight through Shutdown — every standard phase, every time. Memory is unreliable. Runup isn\'t.',
+  },
+  {
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>`,
+    title: 'iPhone to iPad, no drama.',
+    description: 'Switch devices mid-trip and everything is already there. Like magic, but less mysterious. (Pro)',
+  },
+  {
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>`,
+    title: 'Already have a checklist?',
+    description: 'Great. Import it via CSV. We\'re not precious about where it came from — we just want you to have it.',
+  },
+  {
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>`,
+    title: 'Useful on day one.',
+    description: 'A pre-loaded Cessna 172S checklist ships with the app. Open it, understand everything in 60 seconds, fly.',
+  },
+];
+
+const phases = ['Pre-flight', 'Engine Start', 'Taxi', 'Before Takeoff', 'Takeoff', 'Climb', 'Cruise', 'Descent', 'Landing', 'Shutdown'];
+
+const freeFeatures = ['Single aircraft', 'All 10 flight phases', 'Offline access', 'Pre-loaded C172S demo'];
+const proFeatures = ['Unlimited aircraft', 'All Free tier features', 'Cloud sync across devices', 'CSV checklist import', 'Priority support'];
 ---
 
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Runup — Flight checklists that actually go flying with you</title>
+    <meta name="description" content="Stop printing checklists. Runup keeps your per-aircraft checklists on your phone, offline, and ready for every flight phase. Free." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  </head>
+  <body style="background-color: #EAEDF8; font-family: 'Inter', sans-serif; margin: 0;">
+
+    <!-- NAV -->
+    <nav id="nav" style="position: sticky; top: 0; z-index: 50; padding: 0 1.5rem; transition: background 0.2s, box-shadow 0.2s;">
+      <div style="max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 64px;">
+        <img src="/logo.svg" alt="Runup" width="84" height="22" />
+        <a href={APP_URL} style="background: #026BFE; color: white; font-size: 0.875rem; font-weight: 600; padding: 0.5rem 1.25rem; border-radius: 8px; text-decoration: none; letter-spacing: -0.01em;">
+          Get Runup — Free
+        </a>
+      </div>
+    </nav>
+
+    <!-- HERO -->
+    <section style="position: relative; overflow: hidden; padding: 5rem 1.5rem 6rem;">
+      <div style="position: absolute; inset: 0; background-image: url('/sky.jpg'); background-size: cover; background-position: center; opacity: 0.12;"></div>
+      <div style="position: relative; max-width: 760px; margin: 0 auto; text-align: center;">
+        <div class="fade-up" style="animation-delay: 0s;">
+          <span style="display: inline-block; background: white; border: 1px solid #dee2ed; font-size: 0.8rem; font-weight: 500; color: #555; padding: 0.35rem 0.9rem; border-radius: 999px; margin-bottom: 2rem; letter-spacing: 0.01em;">
+            No paper &nbsp;·&nbsp; No Wi-Fi required &nbsp;·&nbsp; No excuses
+          </span>
+        </div>
+        <h1 class="fade-up" style="animation-delay: 0.1s; font-size: clamp(2.4rem, 6vw, 4rem); font-weight: 800; color: #0f1a2e; line-height: 1.1; letter-spacing: -0.03em; margin: 0 0 1.25rem;">
+          Stop printing<br />checklists.
+        </h1>
+        <p class="fade-up" style="animation-delay: 0.2s; font-size: 1.125rem; color: #4a5568; line-height: 1.65; margin: 0 auto 2.5rem; max-width: 520px;">
+          Runup keeps your checklists on your phone, organized by aircraft, ready for every phase of flight — with or without cell service. It supplements your POH. It doesn't replace it. Nothing does.
+        </p>
+        <div class="fade-up" style="animation-delay: 0.3s; display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center; align-items: center;">
+          <a href={APP_URL} style="background: #026BFE; color: white; font-size: 1rem; font-weight: 700; padding: 0.875rem 2rem; border-radius: 8px; text-decoration: none; letter-spacing: -0.01em; box-shadow: 0 4px 14px rgba(2,107,254,0.35);">
+            Try it free
+          </a>
+          <a href="#features" style="color: #026BFE; font-size: 0.95rem; font-weight: 500; text-decoration: none; padding: 0.875rem 0.5rem;">
+            See what's included ↓
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROBLEM STRIP -->
+    <section style="background: #dee2ed; padding: 2rem 1.5rem;">
+      <p style="max-width: 640px; margin: 0 auto; text-align: center; font-size: 1.1rem; font-weight: 500; color: #2d3748; line-height: 1.6; letter-spacing: -0.01em;">
+        Paper checklists get soggy. Laminated ones get left in the other plane. Memory is not a checklist.<br />
+        <span style="color: #026BFE;">Your phone is already in the cockpit. Runup makes it useful.</span>
+      </p>
+    </section>
+
+    <!-- FEATURES -->
+    <section id="features" style="padding: 6rem 1.5rem;">
+      <div style="max-width: 1100px; margin: 0 auto;">
+        <div style="text-align: center; margin-bottom: 3.5rem;">
+          <span style="display: inline-block; background: white; border: 1px solid #dee2ed; font-size: 0.8rem; font-weight: 500; color: #555; padding: 0.35rem 0.9rem; border-radius: 999px; margin-bottom: 1rem;">
+            Why pilots use Runup
+          </span>
+          <h2 style="font-size: clamp(1.8rem, 4vw, 2.5rem); font-weight: 800; color: #0f1a2e; letter-spacing: -0.03em; margin: 0;">
+            Refreshingly no-nonsense.
+          </h2>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.25rem;">
+          {features.map((f, i) => (
+            <div
+              class="feature-card fade-up"
+              style={`animation-delay: ${0.05 * i}s; background: white; border-radius: 12px; padding: 1.75rem; box-shadow: 0px 2px 10px rgba(53,64,92,0.16), 0px 0.836px 4.178px rgba(53,64,92,0.12), 0px 0.447px 2.234px rgba(53,64,92,0.1), 0px 0.25px 1.252px rgba(53,64,92,0.08), 0px 0.133px 0.665px rgba(53,64,92,0.06), 0px 0.055px 0.277px rgba(53,64,92,0.05);`}
+            >
+              <div style="color: #026BFE; margin-bottom: 1rem;" set:html={f.icon} />
+              <h3 style="font-size: 1rem; font-weight: 700; color: #0f1a2e; margin: 0 0 0.5rem; letter-spacing: -0.01em;">{f.title}</h3>
+              <p style="font-size: 0.9rem; color: #667080; line-height: 1.6; margin: 0;">{f.description}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- PHASES STRIP -->
+    <section style="background: #0f1a2e; padding: 3.5rem 1.5rem; overflow: hidden;">
+      <div style="max-width: 1100px; margin: 0 auto; text-align: center;">
+        <p style="font-size: 0.8rem; font-weight: 600; color: #4a6080; letter-spacing: 0.12em; text-transform: uppercase; margin: 0 0 1.5rem;">Every standard phase. Every single flight.</p>
+        <div style="display: flex; flex-wrap: wrap; gap: 0.6rem; justify-content: center;">
+          {phases.map((phase, i) => (
+            <span style={`background: rgba(255,255,255,${0.04 + i * 0.015}); border: 1px solid rgba(255,255,255,0.1); color: rgba(255,255,255,0.75); font-size: 0.85rem; font-weight: 500; padding: 0.4rem 0.9rem; border-radius: 999px;`}>
+              {i + 1}. {phase}
+            </span>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- DEMO -->
+    <section style="padding: 6rem 1.5rem;">
+      <div style="max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;">
+        <div>
+          <span style="display: inline-block; background: white; border: 1px solid #dee2ed; font-size: 0.8rem; font-weight: 500; color: #555; padding: 0.35rem 0.9rem; border-radius: 999px; margin-bottom: 1.25rem;">
+            See it in action
+          </span>
+          <h2 style="font-size: clamp(1.8rem, 3.5vw, 2.25rem); font-weight: 800; color: #0f1a2e; letter-spacing: -0.03em; margin: 0 0 1rem; line-height: 1.15;">
+            Useful on day one.<br />Not after a tutorial.
+          </h2>
+          <p style="font-size: 1rem; color: #4a5568; line-height: 1.65; margin: 0 0 1.5rem;">
+            Runup ships with a pre-loaded Cessna 172S checklist. You open the app, you understand how it works, you fly. That's the whole onboarding experience.
+          </p>
+          <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.6rem;">
+            {['Pick a phase', 'Check items off one by one', 'See what you missed before you move on'].map(item => (
+              <li style="display: flex; align-items: center; gap: 0.6rem; font-size: 0.95rem; color: #4a5568;">
+                <span style="color: #026BFE; font-weight: 700;">✓</span> {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div style="background: white; border-radius: 16px; overflow: hidden; box-shadow: 0px 2px 10px rgba(53,64,92,0.16), 0px 0.836px 4.178px rgba(53,64,92,0.12), 0px 0.447px 2.234px rgba(53,64,92,0.1), 0px 0.25px 1.252px rgba(53,64,92,0.08); position: relative;">
+          <img src="/sky.jpg" alt="App screenshot placeholder" style="width: 100%; height: 320px; object-fit: cover; opacity: 0.6;" />
+          <div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 0.5rem;">
+            <span style="background: rgba(0,0,0,0.5); color: white; font-size: 0.85rem; font-weight: 500; padding: 0.5rem 1.25rem; border-radius: 999px; backdrop-filter: blur(8px);">Screenshots coming soon</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRICING -->
+    <section id="pricing" style="padding: 6rem 1.5rem; background: white;">
+      <div style="max-width: 860px; margin: 0 auto;">
+        <div style="text-align: center; margin-bottom: 3.5rem;">
+          <span style="display: inline-block; background: #EAEDF8; border: 1px solid #dee2ed; font-size: 0.8rem; font-weight: 500; color: #555; padding: 0.35rem 0.9rem; border-radius: 999px; margin-bottom: 1rem;">
+            Pricing
+          </span>
+          <h2 style="font-size: clamp(1.8rem, 4vw, 2.5rem); font-weight: 800; color: #0f1a2e; letter-spacing: -0.03em; margin: 0;">
+            No catch. No credit card. Just fly.
+          </h2>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; align-items: start;">
+          <!-- Free -->
+          <div style="border: 1.5px solid #dee2ed; border-radius: 12px; padding: 2rem; background: #EAEDF8;">
+            <p style="font-size: 0.8rem; font-weight: 600; color: #667080; text-transform: uppercase; letter-spacing: 0.1em; margin: 0 0 0.5rem;">Free</p>
+            <p style="font-size: 2.5rem; font-weight: 800; color: #0f1a2e; letter-spacing: -0.04em; margin: 0 0 0.25rem;">$0</p>
+            <p style="font-size: 0.875rem; color: #667080; margin: 0 0 1.75rem;">Forever free</p>
+            <a href={APP_URL} style="display: block; text-align: center; border: 1.5px solid #026BFE; color: #026BFE; font-size: 0.925rem; font-weight: 600; padding: 0.75rem 1.25rem; border-radius: 8px; text-decoration: none; margin-bottom: 1.75rem;">
+              Get started
+            </a>
+            <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.65rem;">
+              {freeFeatures.map(f => (
+                <li style="display: flex; align-items: center; gap: 0.6rem; font-size: 0.9rem; color: #4a5568;">
+                  <span style="color: #026BFE;">✓</span> {f}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <!-- Pro -->
+          <div style="border: 1.5px solid #026BFE; border-radius: 12px; padding: 2rem; background: white; box-shadow: 0 0 0 4px rgba(2,107,254,0.08); position: relative;">
+            <span style="position: absolute; top: -0.75rem; left: 50%; transform: translateX(-50%); background: #026BFE; color: white; font-size: 0.75rem; font-weight: 700; padding: 0.25rem 0.75rem; border-radius: 999px; white-space: nowrap; letter-spacing: 0.03em;">Coming soon</span>
+            <p style="font-size: 0.8rem; font-weight: 600; color: #026BFE; text-transform: uppercase; letter-spacing: 0.1em; margin: 0 0 0.5rem;">Pro</p>
+            <p style="font-size: 2.5rem; font-weight: 800; color: #0f1a2e; letter-spacing: -0.04em; margin: 0 0 0.25rem;">TBD</p>
+            <p style="font-size: 0.875rem; color: #667080; margin: 0 0 1.75rem;">Billed monthly</p>
+            <button disabled style="display: block; width: 100%; text-align: center; background: #026BFE; color: white; font-size: 0.925rem; font-weight: 600; padding: 0.75rem 1.25rem; border-radius: 8px; border: none; cursor: not-allowed; opacity: 0.5; margin-bottom: 1.75rem; box-sizing: border-box;">
+              Coming soon
+            </button>
+            <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.65rem;">
+              {proFeatures.map(f => (
+                <li style="display: flex; align-items: center; gap: 0.6rem; font-size: 0.9rem; color: #4a5568;">
+                  <span style="color: #026BFE;">✓</span> {f}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA REPEAT -->
+    <section style="background: #026BFE; padding: 5rem 1.5rem; text-align: center;">
+      <h2 style="font-size: clamp(1.8rem, 4vw, 2.5rem); font-weight: 800; color: white; letter-spacing: -0.03em; margin: 0 0 1rem; line-height: 1.15;">
+        The weather's clear.<br />The checklist is loaded.<br />What are you waiting for?
+      </h2>
+      <p style="font-size: 1.05rem; color: rgba(255,255,255,0.75); margin: 0 auto 2.25rem; max-width: 420px; line-height: 1.6;">
+        Free. No signup required. Your POH still comes along for the ride.
+      </p>
+      <a href={APP_URL} style="display: inline-block; background: white; color: #026BFE; font-size: 1rem; font-weight: 700; padding: 0.875rem 2.25rem; border-radius: 8px; text-decoration: none; letter-spacing: -0.01em; box-shadow: 0 4px 20px rgba(0,0,0,0.2);">
+        Open Runup
+      </a>
+    </section>
+
+    <!-- FOOTER -->
+    <footer style="background: #0f1a2e; padding: 3rem 1.5rem;">
+      <div style="max-width: 1100px; margin: 0 auto;">
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: 2rem; margin-bottom: 2.5rem;">
+          <img src="/logo.svg" alt="Runup" width="84" height="22" style="filter: brightness(0) invert(1) opacity(0.6);" />
+          <a href={APP_URL} style="color: rgba(255,255,255,0.5); font-size: 0.875rem; text-decoration: none;">Open app →</a>
+        </div>
+        <div style="border-top: 1px solid rgba(255,255,255,0.08); padding-top: 1.75rem;">
+          <p style="font-size: 0.8rem; color: rgba(255,255,255,0.4); line-height: 1.7; margin: 0 0 0.75rem; max-width: 700px;">
+            <strong style="color: rgba(255,255,255,0.6);">Safety disclaimer:</strong> Runup is a supplementary tool only. You, as pilot-in-command, are solely responsible for the safe conduct of each flight and for verifying all checklist items against the official POH/AFM for your aircraft.
+          </p>
+          <p style="font-size: 0.8rem; color: rgba(255,255,255,0.25); margin: 0;">
+            © {new Date().getFullYear()} Runup. All rights reserved.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+  </body>
 </html>
+
+<style>
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(18px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .fade-up {
+    opacity: 0;
+    animation: fadeInUp 0.6s ease forwards;
+  }
+
+  .feature-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .feature-card:hover {
+    transform: translateY(-3px);
+    box-shadow:
+      0px 6px 20px rgba(53,64,92,0.18),
+      0px 2px 8px rgba(53,64,92,0.12) !important;
+  }
+
+  /* Nav scroll effect */
+  #nav.scrolled {
+    background: rgba(234, 237, 248, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 1px 0 rgba(0,0,0,0.07);
+  }
+
+  /* Demo section responsive */
+  @media (max-width: 720px) {
+    section > div[style*="grid-template-columns: 1fr 1fr"] {
+      grid-template-columns: 1fr !important;
+    }
+  }
+
+  /* Pricing responsive */
+  @media (max-width: 600px) {
+    #pricing div[style*="grid-template-columns: 1fr 1fr"] {
+      grid-template-columns: 1fr !important;
+    }
+  }
+</style>
+
+<script>
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav?.classList.toggle('scrolled', window.scrollY > 20);
+  }, { passive: true });
+</script>
