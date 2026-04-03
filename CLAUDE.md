@@ -15,6 +15,7 @@ The app itself lives in a separate repo (`/Coding/Checky`). This is a single `in
 **Tagline direction:** "The checklist app pilots trust. Built for the cockpit, synced everywhere."
 
 **What it does:**
+
 - Mobile-first PWA for managing and executing per-aircraft flight checklists
 - Covers all 10 standard flight phases: Pre-flight → Engine Start → Taxi → Before Takeoff → Takeoff → Climb → Cruise → Descent → Landing → Shutdown
 - Offline-first (works without a connection, syncs when back online)
@@ -25,6 +26,7 @@ The app itself lives in a separate repo (`/Coding/Checky`). This is a single `in
 **Target user:** Private pilots (VFR/IFR), primarily flying singles. Used on iPhone and iPad Mini in the cockpit.
 
 **Pricing:**
+
 - Free tier: single aircraft
 - Pro tier: unlimited aircraft (not yet live)
 
@@ -35,6 +37,7 @@ The app itself lives in a separate repo (`/Coding/Checky`). This is a single `in
 ## Safety framing (important)
 
 Runup is a supplementary tool. The official disclaimer:
+
 > "Runup is a supplementary tool only. You, as pilot-in-command, are solely responsible for the safe conduct of each flight and for verifying all checklist items against the official POH/AFM."
 
 **On the marketing page:** Lean into "trusted aide, not a replacement" positioning. Never imply the app substitutes for the POH/AFM. This is both legally important and builds credibility with pilots, who are skeptical by training.
@@ -59,18 +62,23 @@ Single scrolling one-pager — all content lives in `src/pages/index.astro`:
 ## Design system
 
 ### Colors
-| Token | Value | Use |
-|---|---|---|
-| Primary blue | `#026BFE` | Buttons, accents, links |
-| Background | `#EAEDF8` | Page background |
-| Card background | `#FFFFFF` | White cards |
-| Divider | `#dee2ed` | Row separators inside cards |
+
+
+| Token           | Value     | Use                         |
+| --------------- | --------- | --------------------------- |
+| Primary blue    | `#026BFE` | Buttons, accents, links     |
+| Background      | `#EAEDF8` | Page background             |
+| Card background | `#FFFFFF` | White cards                 |
+| Divider         | `#dee2ed` | Row separators inside cards |
+
 
 ### Typography
+
 - **Font:** Inter (Variable) — load from Google Fonts or bundle
 - Operational and trustworthy feel; no novelty display fonts
 
 ### Card shadow
+
 ```css
 box-shadow:
   0px 2px 10px rgba(53,64,92,0.16),
@@ -82,12 +90,15 @@ box-shadow:
 ```
 
 ### Border radius
+
 Cards and buttons: ~8px
 
 ### Icons
+
 Lucide icons (same as app) for visual consistency. Install via `npm install lucide-react` or use SVGs inline.
 
 ### Assets available from the app repo
+
 - `../Checky/src/assets/logo.svg` — 84×22px logo
 - `../Checky/src/assets/sky.jpg` — sky background image used in the app
 
@@ -120,3 +131,4 @@ npm run dev       # local dev server
 npm run build     # production build → ./dist/
 npm run preview   # preview the production build
 ```
+

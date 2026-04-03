@@ -1,1 +1,228 @@
+/* Synced from Checky/src/app.css — keep aligned manually */
+@import "@fontsource-variable/inter";
 @import "tailwindcss";
+
+/* Tailwind v4: explicit content paths (relative to this file). Ensures utilities
+   are generated from Astro pages even if the bundler’s import graph changes. */
+@source "../**/*.astro";
+
+/* App-specific semantic tokens (Figma: jz0QEOJgFFkPWgebHWROff) */
+:root {
+  --c-success: #41c519;
+  --c-success-bg: #e0f7d9;
+  --c-success-fg: #1a5c0a;
+  --c-warning: #feba00;
+  --c-warning-bg: #fff8e1;
+  --c-warning-fg: #7a5900;
+  --tap-min: 44px;
+}
+
+/* shadcn / Figma palette */
+:root {
+  --background: #eaedf8;
+  --foreground: #26262c;
+  --card: #ffffff;
+  --card-foreground: #26262c;
+  --popover: #ffffff;
+  --popover-foreground: #26262c;
+  --primary: #026bfe;
+  --primary-foreground: #ffffff;
+  --secondary: #dee2ed;
+  --secondary-foreground: #26262c;
+  --muted: #dee2ed;
+  --muted-foreground: #8f96a8;
+  --accent: #dee2ed;
+  --accent-foreground: #26262c;
+  --destructive: #fe0000;
+  --border: #dee2ed;
+  --input: #dee2ed;
+  --ring: #026bfe;
+  --radius: 0.625rem;
+}
+
+@theme inline {
+  --font-sans: "Inter Variable", sans-serif;
+  --font-mono: Menlo, monospace;
+  --shadow-tiny:
+    0px 0.055px 0.277px rgba(53, 64, 92, 0.04),
+    0px 0.133px 0.665px rgba(53, 64, 92, 0.06),
+    0px 0.836px 4.178px rgba(53, 64, 92, 0.11);
+  --shadow-small:
+    0px 0.055px 0.277px rgba(53, 64, 92, 0.05),
+    0px 0.133px 0.665px rgba(53, 64, 92, 0.06),
+    0px 0.25px 1.252px rgba(53, 64, 92, 0.08),
+    0px 0.447px 2.234px rgba(53, 64, 92, 0.1),
+    0px 0.836px 4.178px rgba(53, 64, 92, 0.12),
+    0px 2px 10px rgba(53, 64, 92, 0.16);
+  --shadow-dialog:
+    0px 1px 3px rgba(53, 64, 92, 0.08),
+    0px 2px 8px rgba(53, 64, 92, 0.12),
+    0px 4px 16px rgba(53, 64, 92, 0.16),
+    0px 8px 40px rgba(53, 64, 92, 0.22);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-foreground: var(--foreground);
+  --color-background: var(--background);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+@layer base {
+  body {
+    font-family: var(--font-sans);
+  }
+}
+
+/* Section kicker — matches Checky .section-label rhythm; use .section-label--pill for chips */
+.section-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.5rem;
+  color: var(--muted-foreground);
+  text-transform: uppercase;
+}
+
+.card-shell {
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  background: var(--card);
+}
+
+@layer components {
+  /* Checky default Button — shadow-tiny, color-mix hover/active */
+  .btn-primary {
+    display: inline-flex;
+    min-height: var(--tap-min);
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--primary);
+    background: var(--primary);
+    padding: 0.5rem 1.25rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1.25;
+    color: var(--primary-foreground);
+    text-decoration: none;
+    box-shadow: var(--shadow-tiny);
+    transition:
+      background 100ms ease,
+      transform 100ms ease,
+      opacity 100ms ease;
+  }
+  .btn-primary:hover {
+    background: color-mix(in srgb, var(--primary) 90%, black);
+  }
+  .btn-primary:active {
+    background: color-mix(in srgb, var(--primary) 80%, black);
+    transform: translateY(1px) scale(0.98);
+  }
+  .btn-primary:focus-visible {
+    outline: none;
+    box-shadow:
+      var(--shadow-tiny),
+      0 0 0 3px color-mix(in srgb, var(--ring) 50%, transparent);
+  }
+
+  .btn-primary-lg {
+    min-height: var(--tap-min);
+    padding: 0.625rem 2rem;
+    font-size: 1rem;
+  }
+
+  /* Checky outline Button */
+  .btn-outline {
+    display: inline-flex;
+    min-height: var(--tap-min);
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--primary);
+    background: var(--background);
+    padding: 0.5rem 1.25rem;
+    font-size: 0.925rem;
+    font-weight: 600;
+    line-height: 1.25;
+    color: var(--primary);
+    text-decoration: none;
+    transition:
+      background 100ms ease,
+      transform 100ms ease;
+  }
+  .btn-outline:hover {
+    background: color-mix(in srgb, black 10%, var(--background));
+  }
+  .btn-outline:active {
+    background: color-mix(in srgb, black 20%, var(--background));
+    transform: translateY(1px) scale(0.98);
+  }
+  .btn-outline:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--ring) 50%, transparent);
+  }
+
+  /* White CTA on primary background */
+  .btn-on-primary {
+    display: inline-flex;
+    min-height: var(--tap-min);
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-lg);
+    border: 1px solid transparent;
+    background: var(--primary-foreground);
+    padding: 0.625rem 2.25rem;
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.25;
+    color: var(--primary);
+    text-decoration: none;
+    box-shadow: var(--shadow-small);
+    transition:
+      background 100ms ease,
+      transform 100ms ease,
+      opacity 100ms ease;
+  }
+  .btn-on-primary:hover {
+    background: color-mix(in srgb, var(--primary-foreground) 92%, var(--primary));
+  }
+  .btn-on-primary:active {
+    transform: translateY(1px) scale(0.98);
+  }
+  .btn-on-primary:focus-visible {
+    outline: none;
+    box-shadow:
+      var(--shadow-small),
+      0 0 0 3px color-mix(in srgb, var(--primary-foreground) 40%, transparent);
+  }
+
+  .btn-primary-block {
+    display: flex;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .btn-primary:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+    pointer-events: none;
+  }
+}
