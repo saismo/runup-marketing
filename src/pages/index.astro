@@ -27,17 +27,17 @@ const features = [
   {
     icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>`,
     title: 'Already have a checklist?',
-    description: 'Great. Import it via CSV. We\'re not precious about where it came from — we just want you to have it.',
+    description: 'Great. Import it via CSV. We\'re not picky about where it came from — we just want you to have it. (Pro)',
   },
   {
     icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>`,
-    title: 'Useful on day one.',
+    title: 'Ready before you are.',
     description: 'A pre-loaded Cessna 172S checklist ships with the app. Open it, understand everything in 60 seconds, fly.',
   },
 ];
 
 const freeFeatures = ['Single aircraft', 'All 10 flight phases', 'Offline access', 'Pre-loaded C172S demo'];
-const proFeatures = ['Unlimited aircraft', 'All Free tier features', 'Cloud sync across devices', 'CSV checklist import', 'Priority support'];
+const proFeatures = ['Unlimited aircraft', 'All Free tier features', 'Cloud sync across devices', 'CSV checklist import'];
 ---
 
 <html lang="en">
@@ -63,13 +63,13 @@ const proFeatures = ['Unlimited aircraft', 'All Free tier features', 'Cloud sync
     <section class="px-6 pt-20 pb-24">
       <div class="mx-auto max-w-[760px] text-center">
         <span class="fade-up mb-8 inline-flex items-center rounded-full border border-border bg-card px-3.5 py-1.5 text-sm font-medium tracking-wide text-muted-foreground" style="animation-delay: 0s;">
-          No paper &nbsp;·&nbsp; No Wi-Fi required &nbsp;·&nbsp; No excuses
+          No paper &nbsp;·&nbsp; No Wi-Fi required &nbsp;·&nbsp; No surprises
         </span>
         <h1 class="fade-up mt-0 mb-5 text-[clamp(2.4rem,6vw,4rem)] font-extrabold tracking-[-0.03em] text-foreground" style="animation-delay: 0.1s; line-height: 1.1;">
           Memory is not a checklist.
         </h1>
         <p class="fade-up mx-auto mb-4 max-w-full text-lg leading-relaxed text-pretty text-muted-foreground" style="animation-delay: 0.2s;">
-          Paper checklists get soggy. Laminated ones get lost. Runup keeps your checklists on your phone, organized by aircraft and ready for every phase of flight, even offline.
+          Paper checklists get soggy. Laminated ones get lost. Runup lives on your mobile device. Organized by aircraft and fully offline when the bars disappear.
         </p>
         <p class="fade-up mx-auto mb-10 max-w-full text-base leading-relaxed text-muted-foreground" style="animation-delay: 0.2s;">
           It supplements your POH. It doesn't replace it. Nothing does.
@@ -148,7 +148,7 @@ const proFeatures = ['Unlimited aircraft', 'All Free tier features', 'Cloud sync
             Runup ships with a pre-loaded Cessna 172S checklist. You open the app, you understand how it works, you fly. That's the whole onboarding experience.
           </p>
           <ul class="m-0 flex list-none flex-col gap-2.5 p-0">
-            {['Pick a phase', 'Check items off one by one', 'See what you missed before you move on'].map(item => (
+            {['Pick a phase', 'Work through it item by item', 'Nothing slips through before you move on'].map(item => (
               <li class="flex items-center gap-2.5 text-base text-muted-foreground">
                 <span class="font-bold text-primary">✓</span> {item}
               </li>
@@ -171,7 +171,7 @@ const proFeatures = ['Unlimited aircraft', 'All Free tier features', 'Cloud sync
             Pricing
           </span>
           <h2 class="m-0 text-[clamp(1.8rem,4vw,2.5rem)] font-extrabold tracking-[-0.03em] text-foreground">
-            No catch. No credit card. Just fly.
+            No catch. No card. No expiry.
           </h2>
         </div>
         <div class="pricing-grid grid grid-cols-1 items-start gap-6 sm:grid-cols-2">
@@ -216,7 +216,7 @@ const proFeatures = ['Unlimited aircraft', 'All Free tier features', 'Cloud sync
         The weather's clear.<br />The checklist is loaded.<br />What are you waiting for?
       </h2>
       <p class="mx-auto mb-9 max-w-[420px] text-base leading-relaxed text-primary-foreground/75">
-        Free. No signup required. Your POH still comes along for the ride.
+        Free. No signup required. Your POH remains the authority — Runup just keeps you honest.
       </p>
       <a href={APP_URL} class="btn-on-primary">Open Runup</a>
     </section>
